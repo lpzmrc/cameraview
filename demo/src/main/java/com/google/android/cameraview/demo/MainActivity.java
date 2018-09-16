@@ -107,15 +107,15 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCameraView = (CameraView) findViewById(R.id.camera);
+        mCameraView = findViewById(R.id.camera);
         if (mCameraView != null) {
             mCameraView.addCallback(mCallback);
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.take_picture);
+        FloatingActionButton fab = findViewById(R.id.take_picture);
         if (fab != null) {
             fab.setOnClickListener(mOnClickListener);
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CAMERA_PERMISSION:
                 if (permissions.length != 1 || grantResults.length != 1) {
@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements
         private static final String ARG_NOT_GRANTED_MESSAGE = "not_granted_message";
 
         public static ConfirmationDialogFragment newInstance(@StringRes int message,
-                String[] permissions, int requestCode, @StringRes int notGrantedMessage) {
+                                                             String[] permissions, int requestCode, @StringRes int notGrantedMessage) {
             ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_MESSAGE, message);
@@ -298,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements
             return fragment;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {

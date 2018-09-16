@@ -16,26 +16,7 @@
 
 package com.google.android.cameraview;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.registerIdlingResources;
-import static android.support.test.espresso.Espresso.unregisterIdlingResources;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-
-import static com.google.android.cameraview.AspectRatioIsCloseTo.closeToOrInverse;
-import static com.google.android.cameraview.CameraViewActions.setAspectRatio;
-import static com.google.android.cameraview.CameraViewMatchers.hasAspectRatio;
-
-import static junit.framework.Assert.assertFalse;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
 import android.support.test.espresso.IdlingResource;
@@ -45,6 +26,7 @@ import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.filters.FlakyTest;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.TextureView;
 import android.view.View;
@@ -64,8 +46,24 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.Set;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.registerIdlingResources;
+import static android.support.test.espresso.Espresso.unregisterIdlingResources;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static com.google.android.cameraview.AspectRatioIsCloseTo.closeToOrInverse;
+import static com.google.android.cameraview.CameraViewActions.setAspectRatio;
+import static com.google.android.cameraview.CameraViewMatchers.hasAspectRatio;
+import static junit.framework.Assert.assertFalse;
+import static org.hamcrest.CoreMatchers.is;
+
 @RunWith(AndroidJUnit4.class)
 public class CameraViewTest {
+
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.CAMERA);
 
     @Rule
     public final ActivityTestRule<CameraViewActivity> rule;
